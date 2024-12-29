@@ -12,24 +12,26 @@ class DBClient {
     const uri = `mongodb://${HOST}:${PORT}/${DATABASE}`;
 
     // Create a Client
-      this.client = MongoClient(uri, { useUnifiedTopology: true });
+    this.client = MongoClient(uri, { useUnifiedTopology: true });
+    this.client.connect();
   }
 
-  // Function validating connection's status
+  // Function validating DB connection's status
   isAlive() {
-    if (this.client.isConnected) {
-      return true;
-    }
-    return false;
+    return this.client.isConnected();
   }
 
   // Function returning the number of registered 'users'
   async nbUsers() {
-    console.log('start');
-    const db = await this.client.db();
-    const userCount = await db.collection('users').countDocuments();
-    console.log('resolved');
-    console.log(userCount);
+    const ourDB = this.client.db();
+    const userCount = ourDB.collection('users').countDocuments();
+    return userCount;
+  }
+
+  // Function returning the number of uploaded 'files'
+  async nbFiles() {
+    const ourDB = this.client.db();
+    const userCount = ourDB.collection('files').countDocuments();
     return userCount;
   }
 }
