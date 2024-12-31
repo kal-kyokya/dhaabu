@@ -1,6 +1,8 @@
 // This is a Script containing a class whose methods handle API routes
 import dbClient from '../utils/db';
 import { sha1 } from 'js-sha1';
+import { ObjectId } from 'mongodb';
+import redisClient from '../utils/redis';
 
 export default class UsersController {
     // Create a new user based on email and password
@@ -44,5 +46,19 @@ export default class UsersController {
 		'id': newUser.ops[0]._id || 0,
 	    }
 	);
+    }
+    
+    // Retrieves the user based on the token used
+    static async getMe(req, res) {
+      const token = req.headers['x-token'];
+      const key = `auth_${token}`;
+      const userId = await redisClient.get(key);
+      const user = await (await dbClient.client.db()).collection('users').findOne({ _id: new ObjectId(userId) });
+      if(!user) {
+        return res.status(401).send({ 'error': 'Unauthorized' });
+      }
+
+      return res.send({ "id": userId, "email": user.email });
+
     }
 }
