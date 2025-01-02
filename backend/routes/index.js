@@ -17,5 +17,11 @@ export default function routing(app) {
   // AuthController
   router.get('/connect', AuthController.getConnect);
   router.get('/disconnect', AuthController.getDisconnect);
+
+  /** More routes
+   * These routes will be defined later as we progress in our project
+   * route.get('/')
+   * route.get
+  
 }
 
