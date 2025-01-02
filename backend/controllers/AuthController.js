@@ -29,23 +29,9 @@ export default class AuthController {
   
   //Disconnect will sign out user based on token
   static async getDisconnect(req, res) {
-    const token = req.headers['x-token'];
-    console.log(token);
-    const key = `auth_${token}`;
-    console.log(key);
-    const userId = await redisClient.get(key);
-    console.log(userId);
-    const user = await (await dbClient.client.db()).collection('users').findOne({ _id: new ObjectId(userId) });
-    console.log(user);
-    if(!user) {
-      return res.status(401).send({ 'error': 'Unauthorized' });
-    }
-    try {
-      await redisClient.del(key);
-      return res.status(204).send({});
-    } catch(error) {
-      console.error(error);
-    }
+    const key = req.key;
+    await redisClient.del(key);
+    return res.status(204).send({});
   }
 
 }

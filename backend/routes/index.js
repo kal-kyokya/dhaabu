@@ -12,10 +12,9 @@ export default function routing(app) {
   router.get('/status', AppController.getStatus);
   router.get('/stats', AppController.getStats);
   // UsersController
-  router.post('/users', UsersController.postNew);
-  router.get('/users/me', UsersController.getMe);
+  router.post('/users/singUp', UsersController.createNewUser);
+  router.get('/users/me', AuthMiddleware.loginRequired, UsersController.getMe);
   // AuthController
-  router.get('/connect', AuthController.getConnect);
-  router.get('/disconnect', AuthController.getDisconnect);
+  router.get('/signIn', AuthController.signingIn);
+  router.get('/signOut', AuthController.signingOut);
 }
-
