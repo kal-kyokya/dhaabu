@@ -6,7 +6,14 @@ import redisClient from '../utils/redis';
 
 export default class UsersController {
     // Create a new user based on email and password
-    static async postNew(req, res) {
+    static async createNewUser(req, res) {
+
+	// Validate the 'username' sent
+	const username = req.body ? req.body.username : null;
+	if (!username) {
+	    res.status(400).send({'error': 'Missing username'});
+	    return
+	}
 
 	// Validate the 'email' sent
 	const email = req.body ? req.body.email : null;
@@ -29,7 +36,7 @@ export default class UsersController {
 
 	// Verify that the 'email' not in Database
 	if (user && user.email === email) {
-	    res.status(400).send({'error': 'Email already in use, User already exists N*gga'});
+	    res.status(400).send({'error': 'Email already in use, User already exists'});
 	    return;
 	}
 
@@ -37,12 +44,13 @@ export default class UsersController {
 	const hashedPwd = sha1(password);
 
 	// Save 'new user' to MongoDB
-	const newUser = await userCollection.insertOne({email, hashedPwd});
+	const newUser = await userCollection.insertOne({ username, email, hashedPwd });
 
 	// Return an Object containing the user's 'email' and the auto-assigned 'id'
 	res.status(200).send(
 	    {
 		email: newUser.ops[0].email || 'None',
+		username: newUser.ops[0].username || 'None',
 		'id': newUser.ops[0]._id || 0,
 	    }
 	);
@@ -50,15 +58,7 @@ export default class UsersController {
     
     // Retrieves the user based on the token used
     static async getMe(req, res) {
-      const token = req.headers['x-token'];
-      const key = `auth_${token}`;
-      const userId = await redisClient.get(key);
-      const user = await (await dbClient.client.db()).collection('users').findOne({ _id: new ObjectId(userId) });
-      if(!user) {
-        return res.status(401).send({ 'error': 'Unauthorized' });
-      }
-
-      return res.send({ "id": userId, "email": user.email });
-
+      const user = req.user;
+      return res.send({ "id": user._id.toString(), "email": user.email });
     }
 }

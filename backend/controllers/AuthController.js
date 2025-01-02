@@ -26,21 +26,11 @@ export default class AuthController {
     return res.status(200).send({ "token": token });
   }
   
-  //Will sign out user based on token
+  // Will sign out user based on token
   static async signingOut(req, res) {
-    const token = req.headers['x-token'];
-    const key = `auth_${token}`;
-    const userId = await redisClient.get(key);
-    const user = await (await dbClient.client.db()).collection('users').findOne({ _id: new ObjectId(userId) });
-    if(!user) {
-      return res.status(401).send({ 'error': 'Unauthorized' });
-    }
-    try {
-      await redisClient.del(key);
-      return res.status(204).send({});
-    } catch(error) {
-      console.error(error);
-    }
+    const key = req.key;
+    await redisClient.del(key);
+    return res.status(204).send({});
   }
 
 }
