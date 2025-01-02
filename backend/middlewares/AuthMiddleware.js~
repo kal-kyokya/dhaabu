@@ -1,4 +1,0 @@
-// This file contains a class protecting routes after logouts
-
-
-export default class AuthMiddleWare
