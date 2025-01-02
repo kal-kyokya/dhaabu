@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ObjectId } from 'mongodb';
 
 export default class AuthController {
-  //Connect signs in the user by generating new auth token
-  static async getConnect(req, res) {
+  //Signs in the user by generating new auth token
+  static async signingIn(req, res) {
     const header = req.headers.authorization;
     if(!header) {
       return res.status(401).send({ 'error': 'Unauthorized' });
@@ -24,11 +24,10 @@ export default class AuthController {
     const key = `auth_${token}`;
     await redisClient.set(key, user._id, 86400);
     return res.status(200).send({ "token": token });
-
   }
   
-  //Disconnect will sign out user based on token
-  static async getDisconnect(req, res) {
+  // Will sign out user based on token
+  static async signingOut(req, res) {
     const key = req.key;
     await redisClient.del(key);
     return res.status(204).send({});
