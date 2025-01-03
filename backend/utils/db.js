@@ -1,10 +1,12 @@
 // File containing a class enabling interaction with MongoDB
 import { MongoClient } from 'mongodb';
+import envLoader from './envLoader';
 
 class DBClient {
   // class definition
   constructor() {
     // Load environment variables
+    envLoader();
     const HOST = process.env.DB_HOST || 'localhost';
     const PORT = process.env.DB_PORT || '27017';
     const DATABASE = process.env.DB_NAME || 'dhaabu_db';
