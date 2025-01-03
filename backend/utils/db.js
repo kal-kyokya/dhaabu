@@ -23,19 +23,15 @@ class DBClient {
 
   // Function returning the number of registered 'users'
   async nbUsers() {
-    const ourDB = this.client.db();
-    const userCount = ourDB.collection('users').countDocuments();
-    return userCount;
+    return this.client.db().collection('users').countDocuments();
   }
 
   // Function returning the number of uploaded 'files'
   async nbFiles() {
-    const ourDB = this.client.db();
-    const userCount = ourDB.collection('files').countDocuments();
-    return userCount;
+    return this.client.db().collection('files').countDocuments();
   }
 }
 
-// Export of class instance
+// Class instance export
 const dbClient = new DBClient();
 export default dbClient;
