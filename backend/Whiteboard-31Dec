@@ -41,8 +41,15 @@ Associated Endpoint and Content:
 }
 ---
 
+TOKEN BASED AUTH: {
+        'users/signUp' POST,
+	'users/signIn' POST,
+	'users/signOut' GET,
+	'users/me' GET : returns a Profile Object,
+}
+
 AUTH --> AuthController
-  * /signup
+  * /signup --> { username, email, password1, password2}
   * /signin
   * /signout [l]
 
@@ -50,6 +57,7 @@ HOME
   * '/'
 
 POSTS --> PostsController
+  * /posts/add
   * /posts/<postId>
   * /posts/<postId>/edit [lx]
   * /posts/<postId>/delete [lx]
@@ -75,3 +83,10 @@ CLARIFICATIONS:
 
 * Length of posts:
   --> View for longer posts (API endpoint and 'Expand' feature).
+* Home Route: Static page ? What's the view ?
+* Logged in User;
+  _ How to ensure a session has been created ?
+      <RedisClient.set()>
+  _ Does Redis take care of that ? Something else, an Extra feature ? 
+  _ How to protect logged in routes after logouts ?
+      <Middleware Request Preprocessing>

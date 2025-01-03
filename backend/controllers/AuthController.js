@@ -5,8 +5,8 @@ import { v4 as uuidv4 } from 'uuid';
 import { ObjectId } from 'mongodb';
 
 export default class AuthController {
-  //Connect signs in the user by generating new auth token
-  static async getConnect(req, res) {
+  //Signs in the user by generating new auth token
+  static async signingIn(req, res) {
     const header = req.headers.authorization;
     if(!header) {
       return res.status(401).send({ 'error': 'Unauthorized' });
@@ -24,28 +24,13 @@ export default class AuthController {
     const key = `auth_${token}`;
     await redisClient.set(key, user._id, 86400);
     return res.status(200).send({ "token": token });
-
   }
   
-  //Disconnect will sign out user based on token
-  static async getDisconnect(req, res) {
-    const token = req.headers['x-token'];
-    console.log(token);
-    const key = `auth_${token}`;
-    console.log(key);
-    const userId = await redisClient.get(key);
-    console.log(userId);
-    const user = await (await dbClient.client.db()).collection('users').findOne({ _id: new ObjectId(userId) });
-    console.log(user);
-    if(!user) {
-      return res.status(401).send({ 'error': 'Unauthorized' });
-    }
-    try {
-      await redisClient.del(key);
-      return res.status(204).send({});
-    } catch(error) {
-      console.error(error);
-    }
+  // Will sign out user based on token
+  static async signingOut(req, res) {
+    const key = req.key;
+    await redisClient.del(key);
+    return res.status(204).send({});
   }
 
 }
