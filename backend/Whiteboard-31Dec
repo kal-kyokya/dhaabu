@@ -7,6 +7,7 @@ DHAABU PHASE 1: BEFORE ALX
 * Only has 2 UI (2 pages).
   --> Page 1: Home page.
   --> Page 2: Profile page.
+  
 
 * Profile page:
   --> '/' GET

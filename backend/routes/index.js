@@ -25,6 +25,6 @@ export default function routing(app) {
   router.get('/users/me', AuthMiddleware.loginRequired, UsersController.getMe);
 
   // AuthController
-  router.get('/signIn', AuthController.signingIn);
-  router.get('/signOut', AuthController.signingOut);
+  router.get('/signIn', AuthMiddleware.logoutRequired, AuthController.signingIn);
+  router.get('/signOut', AuthMiddleware.loginRequired, AuthController.signingOut);
 }
