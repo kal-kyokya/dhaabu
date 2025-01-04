@@ -1,10 +1,12 @@
 // File containing a class enabling interaction with MongoDB
 import { MongoClient } from 'mongodb';
+import envLoader from './envLoader';
 
 class DBClient {
   // class definition
   constructor() {
     // Load environment variables
+    envLoader();
     const HOST = process.env.DB_HOST || 'localhost';
     const PORT = process.env.DB_PORT || '27017';
     const DATABASE = process.env.DB_NAME || 'dhaabu_db';
@@ -23,19 +25,15 @@ class DBClient {
 
   // Function returning the number of registered 'users'
   async nbUsers() {
-    const ourDB = this.client.db();
-    const userCount = ourDB.collection('users').countDocuments();
-    return userCount;
+    return this.client.db().collection('users').countDocuments();
   }
 
   // Function returning the number of uploaded 'files'
   async nbFiles() {
-    const ourDB = this.client.db();
-    const userCount = ourDB.collection('files').countDocuments();
-    return userCount;
+    return this.client.db().collection('files').countDocuments();
   }
 }
 
-// Export of class instance
+// Class instance export
 const dbClient = new DBClient();
 export default dbClient;
