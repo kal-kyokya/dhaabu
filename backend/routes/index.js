@@ -3,6 +3,7 @@ import { Router } from 'express';
 import AppController from '../controllers/AppController';
 import UsersController from '../controllers/UsersController';
 import AuthController from '../controllers/AuthController';
+import AuthMiddleware from '../middlewares/AuthMiddleware';
 
 
 export default function routing(app) {
@@ -12,10 +13,10 @@ export default function routing(app) {
   router.get('/status', AppController.getStatus);
   router.get('/stats', AppController.getStats);
   // UsersController
-  router.post('/users/singUp', UsersController.createNewUser);
+  router.post('/users/signUp', UsersController.createNewUser);
   router.get('/users/me', AuthMiddleware.loginRequired, UsersController.getMe);
   // AuthController
-  router.get('/signIn', AuthController.signingIn);
-  router.get('/signOut', AuthController.signingOut);
+  router.get('/signIn', AuthMiddleware.logoutRequired, AuthController.signingIn);
+  router.get('/signOut', AuthMiddleware.loginRequired, AuthController.signingOut);
 
 }

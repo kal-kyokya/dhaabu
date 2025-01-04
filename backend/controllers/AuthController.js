@@ -29,6 +29,7 @@ export default class AuthController {
   // Will sign out user based on token
   static async signingOut(req, res) {
     const key = req.key;
+    console.log(key);
     await redisClient.del(key);
     return res.status(204).send({});
   }

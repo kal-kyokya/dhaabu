@@ -18,7 +18,13 @@ export default class AuthMiddleWare {
 	}
 	req.user = user;
 	req.key = key;
-
 	next();
+    }
+
+    static async logoutRequired(req, res, next) {
+       if(req.headers['x-token']) {
+         return res.redirect('/users/me')  // .send({ "error": "User already logged in" });
+       }
+       next();
     }
 }
