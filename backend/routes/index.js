@@ -4,6 +4,7 @@ import AppController from '../controllers/AppController';
 import AuthController from '../controllers/AuthController';
 import AuthMiddleware from '../middlewares/AuthMiddleware';
 import UsersController from '../controllers/UsersController';
+import PostsController from '../controllers/PostsController';
 
 /**
  * Function routing endpoints to request handlers
@@ -27,4 +28,7 @@ export default function routing(app) {
   // AuthController
   router.get('/signIn', AuthMiddleware.logoutRequired, AuthController.signingIn);
   router.get('/signOut', AuthMiddleware.loginRequired, AuthController.signingOut);
+
+  // PostController
+  router.post('/newPost', AuthMiddleware.loginRequired, PostsController.addNewPost);
 }
