@@ -1,5 +1,6 @@
 // This is a Script containing a class whose methods handle posts API routes
 import dbClient from '../utils/db';
+import { ObjectId } from 'mongodb';
 
 export default class PostsController {
   // Add a new post
@@ -32,6 +33,15 @@ export default class PostsController {
     } catch(error) {
       console.log(error);
     }
+  }
+
+  static async viewPost(req, res) {
+    const post_id = req.params.post_id;
+    const ourDB = dbClient.client.db();
+    const postsCollection = ourDB.collection('posts');
+    const post = await postsCollection.findOne({ _id: ObjectId(post_id) });
+    
+    return res.status(200).send({ title: post.title, content: post.content });
   }
 
 }

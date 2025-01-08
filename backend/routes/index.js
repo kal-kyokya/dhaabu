@@ -31,5 +31,5 @@ export default function routing(app) {
 
   // PostController
   router.post('/newPost', AuthMiddleware.loginRequired, PostsController.addNewPost);
-  //
+  router.get('/viewpost/:post_id', PostsController.viewPost);
 }
