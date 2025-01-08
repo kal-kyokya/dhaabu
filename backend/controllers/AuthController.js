@@ -17,7 +17,8 @@ export default class AuthController {
     }
 
     // Extract user information from the encoded header
-    const credentials = Buffer.from(header.split(' ')[1], 'base64').toString('utf-8');
+    // const credentials = Buffer.from(header.split(' ')[1], 'base64').toString('utf-8');
+    const credentials = header.split(' ')[1];
     const email = credentials.split(':')[0];
 
     // Ensure the DB contains a user with input email
