@@ -9,6 +9,12 @@ const API = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
 });
 
-export const login = (data) => API.post('/login', data);
-export const signup = (data) => API.post('/signup', data);
+export const login = ({email, password}) => {
+  const auth = `Basic ${email}:${password}`;
+  const headers = new Headers();
+  headers.append("authorization", auth);
+  
+  return API.get('/signIn', {headers});
+};
+export const signup = (data) => API.post('/users/signUp', data);
 

@@ -1,12 +1,19 @@
 // Create an express server
 import express from 'express';
 import routing from './routes/index';
+import cors from 'cors';
 
 // Store an Express instance representing the app
 const app = express();
 
 // Initialize the app
 const PORT = process.env.PORT || 5000;
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 // Ensure the app processes json data accordingly
 app.use(express.json());
