@@ -8,7 +8,7 @@ import { existsSync, readFileSync } from 'fs';
  */
 export default function envLoader() {
   // Find out what npm script is being run
-  const stage = process.env.npm.lifecycle_event || 'dev';
+  const stage = process.env.npm_lifecycle_event || 'dev';
 
   // Ensure the proper '.env' file linked with the stage is used
   const envFile = stage.includes('test') ? '.env.test' : '.env';
