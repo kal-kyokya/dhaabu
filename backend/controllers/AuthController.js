@@ -12,6 +12,7 @@ export default class AuthController {
   static async signingIn(req, res) {
     // Sign in a user using 'Basic Authentication'
     const header = req.headers.authorization;
+    console.log({header});
     if (!header) {
       return res.status(401).send({ error: 'Unauthorized' });
     }
@@ -20,9 +21,11 @@ export default class AuthController {
     // const credentials = Buffer.from(header.split(' ')[1], 'base64').toString('utf-8');
     const credentials = header.split(' ')[1];
     const email = credentials.split(':')[0];
+    console.log({email});
 
     // Ensure the DB contains a user with input email
     const user = await (await dbClient.client.db()).collection('users').findOne({ email });
+    console.log({user});
     if (!user) {
       return res.status(401).send({ error: 'Unauthorized' });
     }
@@ -30,7 +33,9 @@ export default class AuthController {
     // Generate an Auth Token and associate it to the user
     const token = uuidv4();
     const key = `auth_${token}`;
+    console.log({token});
     await redisClient.set(key, user._id, 86400);
+    console.log({key})
     return res.status(200).send({ token: token });
   }
 

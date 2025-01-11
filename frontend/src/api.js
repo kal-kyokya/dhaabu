@@ -13,8 +13,10 @@ export const login = ({email, password}) => {
   const auth = `Basic ${email}:${password}`;
   const headers = new Headers();
   headers.append("authorization", auth);
-  
+  console.log({email, password});
+
   return API.get('/signIn', {headers});
 };
+
 export const signup = (data) => API.post('/users/signUp', data);
 

@@ -11,7 +11,9 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      console.log("here");
       const response = await login({ email, password });
+      console.log({response});
       localStorage.setItem('token', response.data.token); // Assuming the token is returned
       navigate('/dashboard');
     } catch (err) {
