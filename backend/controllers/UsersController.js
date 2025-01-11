@@ -3,7 +3,11 @@ import { sha1 } from 'js-sha1';
 import dbClient from '../utils/db';
 
 export default class UsersController {
-  // Create a new user based on email and password
+  /**
+   * Creates a new user by saving their username, email and password
+   * @param { Object } req - The request object
+   * @param { Object } res - The response object
+   */
   static async createNewUser(req, res) {
     // Validate the 'username' sent
     const username = req.body ? req.body.username : null;
@@ -47,7 +51,11 @@ export default class UsersController {
     res.status(200).send({ email, username, id: newUser.ops[0]._id || 0 });
   }
 
-  // Retrieves the user based on the token used
+  /**
+   * Retrieves the user based on the token in the request object
+   * @param { Object } req - The request object
+   * @param { Object } res - The response object
+   */
   static async getMe(req, res) {
     const { user } = req;
     return res.send({ id: user._id.toString(), email: user.email });
