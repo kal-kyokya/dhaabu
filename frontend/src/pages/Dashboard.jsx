@@ -3,7 +3,7 @@ import { FaArrowLeft, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
 
 const Dhaabu = () => {
   return (
-    <div className="flex min-h-screen bg-gray-50 px-6">
+    <div className="flex min-h-screen bg-gray-50 shadow-5xl  w-full">
       {/* Left Sidebar */}
       <aside className="w-1/5 bg-blue-900 text-white p-4 flex flex-col justify-between">
         <div>
@@ -32,9 +32,9 @@ const Dhaabu = () => {
       </aside>
 
       {/* Main Feed */}
-      <main className="flex-1 p-6">
+      <main className="flex-1 px-2">
         {/* Header Section */}
-        <div className="flex justify-between items-center mb-6 bg-white p-4 rounded-lg shadow">
+        <div className="flex justify-between items-center mb-6 bg-white px-2 rounded-lg shadow">
           {/* Search Bar */}
           <div className="relative flex-grow mx-4 my-2">
             <input
@@ -47,17 +47,17 @@ const Dhaabu = () => {
           {/* Icons and Profile */}
           <div className="flex items-center space-x-8">
             {/* Notification Icon */}
-            <button className="p-2 bg-yellow-400 text-white rounded-full hover:bg-yellow-500">
+            <button className="p-2 bg-blue-900 text-white rounded-full hover:bg-blue-800">
             <svg class="h-6 w-6 text-gray-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />  <path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
             </button>
 
             {/* Create Post Button */}
-            <button className="p-2 bg-yellow-400 text-white rounded-full hover:bg-yellow-500">
+            <button className="p-2 bg-blue-900 text-white rounded-full hover:bg-blue-800">
             <svg class="h-6 w-6 text-gray-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>
             </button>
 
             {/* User Profile */}
-            <button className="p-2 bg-yellow-400 text-gray-500 rounded-full">
+            <button className="p-2 bg-blue-900 text-gray-800 rounded-full hover:bg-blue-800">
             <svg class="h-6 w-6 text-gray-100"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
 </svg>
