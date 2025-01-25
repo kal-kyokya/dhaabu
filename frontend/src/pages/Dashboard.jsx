@@ -1,5 +1,7 @@
 import React from "react";
 import { FaArrowLeft, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 
 const Dhaabu = () => {
   return (
@@ -51,10 +53,26 @@ const Dhaabu = () => {
             <svg class="h-6 w-6 text-gray-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />  <path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
             </button>
 
-            {/* Create Post Button */}
+           {/* Create Post Button */}
+            <Link to="/create-post" aria-label="Go to Create Post">
             <button className="p-2 bg-blue-900 text-white rounded-full hover:bg-blue-800">
-            <svg class="h-6 w-6 text-gray-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="12" y1="5" x2="12" y2="19" />  <line x1="5" y1="12" x2="19" y2="12" /></svg>
+                <svg
+                className="h-6 w-6 text-gray-100"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                >
+                <path stroke="none" d="M0 0h24v24H0z" />
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
             </button>
+            </Link>
 
             {/* User Profile */}
             <button className="p-2 bg-blue-900 text-gray-800 rounded-full hover:bg-blue-800">
