@@ -1,11 +1,18 @@
 import React from "react";
 import { FaArrowLeft, FaSignOutAlt, FaUserCircle } from "react-icons/fa";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 const Dhaabu = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem("userToken");
+    sessionStorage.removeItem("userSession");
+    navigate("/login"); // Redirect to login page
+  };
+
   return (
-    <div className="flex min-h-screen bg-gray-50 shadow-5xl  w-full">
+    <div className="flex min-h-screen bg-gray-50 shadow-5xl w-full">
       {/* Left Sidebar */}
       <aside className="w-1/5 bg-blue-900 text-white p-4 flex flex-col justify-between">
         <div>
@@ -15,7 +22,6 @@ const Dhaabu = () => {
               <li><a href="#" className="hover:underline">Home</a></li>
               <li><a href="#" className="hover:underline">Questions</a></li>
               <li><a href="#" className="hover:underline">Discover</a></li>
-              <li><a href="#" className="hover:underline">My Profile</a></li>
             </ul>
           </nav>
           <div className="mt-8">
@@ -24,10 +30,19 @@ const Dhaabu = () => {
           </div>
         </div>
         <div>
-          <button className="block w-full mb-2 text-yellow-400 hover:text-yellow-500 flex items-center space-x-2">
+          {/* Go Back Button */}
+          <button
+            onClick={() => navigate(-1)} // Go back
+            className="block w-full mb-2 text-yellow-400 hover:text-yellow-500 flex items-center space-x-2"
+          >
             <FaArrowLeft /> <span>Go Back</span>
           </button>
-          <button className="block w-full text-yellow-400 hover:text-yellow-500 flex items-center space-x-2">
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout} // Logout
+            className="block w-full text-yellow-400 hover:text-yellow-500 flex items-center space-x-2"
+          >
             <FaSignOutAlt /> <span>Logout</span>
           </button>
         </div>
@@ -40,23 +55,17 @@ const Dhaabu = () => {
           {/* Search Bar */}
           <div className="relative flex-grow mx-4 my-2">
             <input
-                type="text"
-                placeholder="Search Dhaabu..."
-                className="w-full max-w-5xl px-4 py-2 text-sm bg-gray-100 rounded-full focus:outline-none"
+              type="text"
+              placeholder="Search Dhaabu..."
+              className="w-full max-w-5xl px-4 py-2 text-sm bg-gray-100 rounded-full focus:outline-none"
             />
-            </div>
+          </div>
 
           {/* Icons and Profile */}
           <div className="flex items-center space-x-8">
             {/* Notification Icon */}
             <button className="p-2 bg-blue-900 text-white rounded-full hover:bg-blue-800">
-            <svg class="h-6 w-6 text-gray-100"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />  <path d="M9 17v1a3 3 0 0 0 6 0v-1" /></svg>
-            </button>
-
-           {/* Create Post Button */}
-            <Link to="/create-post" aria-label="Go to Create Post">
-            <button className="p-2 bg-blue-900 text-white rounded-full hover:bg-blue-800">
-                <svg
+              <svg
                 className="h-6 w-6 text-gray-100"
                 width="24"
                 height="24"
@@ -66,26 +75,57 @@ const Dhaabu = () => {
                 fill="none"
                 stroke-linecap="round"
                 stroke-linejoin="round"
-                >
+              >
                 <path stroke="none" d="M0 0h24v24H0z" />
-                <line x1="12" y1="5" x2="12" y2="19" />
-                <line x1="5" y1="12" x2="19" y2="12" />
-                </svg>
+                <path d="M10 5a2 2 0 0 1 4 0a7 7 0 0 1 4 6v3a4 4 0 0 0 2 3h-16a4 4 0 0 0 2 -3v-3a7 7 0 0 1 4 -6" />
+                <path d="M9 17v1a3 3 0 0 0 6 0v-1" />
+              </svg>
             </button>
+
+            {/* Create Post Button */}
+            <Link to="/create-post" aria-label="Go to Create Post">
+              <button className="p-2 bg-blue-900 text-white rounded-full hover:bg-blue-800">
+                <svg
+                  className="h-6 w-6 text-gray-100"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  fill="none"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path stroke="none" d="M0 0h24v24H0z" />
+                  <line x1="12" y1="5" x2="12" y2="19" />
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                </svg>
+              </button>
             </Link>
 
             {/* User Profile */}
-            <button className="p-2 bg-blue-900 text-gray-800 rounded-full hover:bg-blue-800">
-            <svg class="h-6 w-6 text-gray-100"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-</svg>
-
-            </button>
+            <Link to="/profile">
+              <button className="p-2 bg-blue-900 text-gray-800 rounded-full hover:bg-blue-800">
+                <svg
+                  className="h-6 w-6 text-gray-100"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </button>
+            </Link>
           </div>
         </div>
 
-       {/* Timeline */}
-       <div>
+        {/* Timeline */}
+        <div>
           {/* Post 1 */}
           <div className="bg-white p-4 rounded-lg shadow mb-6">
             <h2 className="text-xl font-semibold mb-2 text-gray-800">What are the key traditions of the Yoruba people?</h2>
@@ -101,7 +141,7 @@ const Dhaabu = () => {
 
           {/* Post 2 */}
           <div className="bg-white p-4 rounded-lg shadow mb-6">
-          <h2 className="text-xl font-semibold mb-2 text-gray-800">What are the origins of African drumming?</h2>
+            <h2 className="text-xl font-semibold mb-2 text-gray-800">What are the origins of African drumming?</h2>
             <p className="text-gray-600 mb-4">Dive into the rhythms that shaped African music and its global influence.</p>
             <div className="flex justify-between items-center">
               <div className="flex space-x-4">
@@ -114,7 +154,7 @@ const Dhaabu = () => {
 
           {/* Post 3 */}
           <div className="bg-white p-4 rounded-lg shadow mb-6">
-          <h2 className="text-xl font-semibold mb-2 text-gray-800">How is Kente cloth made?</h2>
+            <h2 className="text-xl font-semibold mb-2 text-gray-800">How is Kente cloth made?</h2>
             <p className="text-gray-600 mb-4">Unveil the craftsmanship behind the vibrant and symbolic Kente cloth.</p>
             <div className="flex justify-between items-center">
               <div className="flex space-x-4">

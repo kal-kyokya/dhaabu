@@ -3,7 +3,8 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
-import CreatePost from "./pages/CreatePost"; // Make sure this is imported
+import CreatePost from "./pages/CreatePost";
+import Profile from "./pages/Profile"; // Import Profile page
 import Footer from "./components/Footer";
 
 const App = () => {
@@ -66,6 +67,7 @@ const App = () => {
             <Route path="/signup" element={<Signup />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/create-post" element={<CreatePost />} />
+            <Route path="/profile" element={<Profile />} /> {/* Profile Route */}
           </Routes>
         </main>
         <Footer />
