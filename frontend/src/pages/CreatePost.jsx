@@ -1,7 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { FaArrowLeft, FaSignOutAlt } from "react-icons/fa"; // Importing icons
 
 const CreatePostPage = () => {
+  const navigate = useNavigate();
+
+  // Handle Logout
+  const handleLogout = () => {
+    // Clear session or user data (this is a placeholder)
+    localStorage.removeItem("userToken"); // Example: Clear token from local storage
+    alert("Logged out successfully!");
+    navigate("/login"); // Redirect to login page
+  };
+
   return (
     <div className="flex min-h-screen bg-gray-50 shadow-5xl w-full">
       {/* Left Sidebar */}
@@ -40,10 +51,19 @@ const CreatePostPage = () => {
           </div>
         </div>
         <div>
-          <button className="block w-full mb-2 text-yellow-400 hover:text-yellow-500 flex items-center space-x-2">
+          {/* Go Back Button */}
+          <button
+            onClick={() => navigate(-1)} // Go back to the previous page
+            className="block w-full mb-2 text-yellow-400 hover:text-yellow-500 flex items-center space-x-2"
+          >
             <FaArrowLeft /> <span>Go Back</span>
           </button>
-          <button className="block w-full text-yellow-400 hover:text-yellow-500 flex items-center space-x-2">
+
+          {/* Logout Button */}
+          <button
+            onClick={handleLogout} // Call handleLogout function
+            className="block w-full text-yellow-400 hover:text-yellow-500 flex items-center space-x-2"
+          >
             <FaSignOutAlt /> <span>Logout</span>
           </button>
         </div>

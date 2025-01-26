@@ -12,9 +12,9 @@ const Dhaabu = () => {
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-50 shadow-5xl w-full">
+    <div className="flex min-h-screen bg-gray-50 w-full">
       {/* Left Sidebar */}
-      <aside className="w-1/5 bg-blue-900 text-white p-4 flex flex-col justify-between">
+      <aside className="sticky top-0 w-1/5 bg-blue-900 text-white p-4 flex flex-col justify-between h-screen">
         <div>
           <h2 className="text-xl font-bold mb-6 text-yellow-400">Dhaabu</h2>
           <nav>
@@ -49,7 +49,7 @@ const Dhaabu = () => {
       </aside>
 
       {/* Main Feed */}
-      <main className="flex-1 px-2">
+      <main className="flex-1 px-2 overflow-y-auto h-screen">
         {/* Header Section */}
         <div className="flex justify-between items-center mb-6 bg-white px-2 rounded-lg shadow">
           {/* Search Bar */}
@@ -168,7 +168,7 @@ const Dhaabu = () => {
       </main>
 
       {/* Right Sidebar */}
-      <aside className="w-1/4 bg-gray-100 p-4 border-l">
+      <aside className="sticky top-0 w-1/4 bg-gray-100 p-4 border-l h-screen overflow-y-auto">
         <h3 className="text-lg font-bold mb-4 text-gray-800">Recent Questions</h3>
         <ul className="space-y-4">
           <li>
