@@ -1,6 +1,6 @@
 // Create an express server
 import express from 'express';
-import routing from './routes/index';
+import routing from './routes/index.js';
 import cors from 'cors';
 
 // Store an Express instance representing the app
