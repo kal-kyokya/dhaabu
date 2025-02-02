@@ -12,24 +12,24 @@ const CreatePostPage = () => {
     e.preventDefault(); // Prevent page reload
 
     try {
-      const response = await fetch("http://localhost:5000/newPost", {
+      const response = await fetch("http://127.0.0.1:5000/newPost", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`, // Ensure token is present
+          Authorization: `Bearer ${localStorage.getItem("token") || ""}`, // Handle missing token safely
         },
         body: JSON.stringify({ title: postTitle, content: postContent }),
       });
 
-      const data = await response.json();
-      if (response.ok) {
-        console.log("Post created:", data);
-        alert("Post created successfully!");
-        navigate("/dashboard"); // Redirect to dashboard
-      } else {
-        console.error("Error creating post:", data.error);
-        alert(`Error: ${data.error}`);
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to create post");
       }
+
+      const data = await response.json();
+      console.log("Post created:", data);
+      alert("Post created successfully!");
+      navigate("/dashboard"); // Redirect to dashboard after post is created
     } catch (error) {
       console.error("Network error:", error);
       alert("Network error. Please try again.");
@@ -83,48 +83,43 @@ const CreatePostPage = () => {
           <p className="text-gray-500">Drafts</p>
         </header>
 
-        {/* Tabs */}
-        <div className="flex space-x-4 border-b mb-6">
-          <button className="pb-2 text-blue-500 border-b-2 border-blue-500">Text</button>
-          <button className="pb-2 text-gray-500 hover:text-blue-500">Images & Video</button>
-          <button className="pb-2 text-gray-500 hover:text-blue-500">Link</button>
-          <button className="pb-2 text-gray-500 hover:text-blue-500">Poll</button>
-        </div>
-
-        {/* Form */}
-        <form className="space-y-6" onSubmit={createPost}>
-          {/* Title Input */}
+        {/* Post Form */}
+        <form onSubmit={createPost} className="space-y-4">
           <div>
-            <label htmlFor="title" className="block text-gray-700 font-semibold mb-2">Title</label>
+            <label htmlFor="postTitle" className="block text-gray-700 font-medium">Post Title</label>
             <input
               type="text"
-              id="title"
+              id="postTitle"
+              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter post title"
               value={postTitle}
               onChange={(e) => setPostTitle(e.target.value)}
-              className="w-full border border-gray-300 rounded p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter the title"
-              maxLength={300}
             />
-            <p className="text-sm text-gray-400 mt-1 text-right">{postTitle.length}/300</p>
           </div>
-
-          {/* Body Input */}
+          
           <div>
-            <label htmlFor="body" className="block text-gray-700 font-semibold mb-2">Body</label>
+            <label htmlFor="postContent" className="block text-gray-700 font-medium">Post Content</label>
             <textarea
-              id="body"
+              id="postContent"
+              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Write your post content here"
+              rows="5"
               value={postContent}
               onChange={(e) => setPostContent(e.target.value)}
-              className="w-full border border-gray-300 rounded p-3 h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter the post content"
             ></textarea>
           </div>
 
-          {/* Submit Button */}
-          <div className="flex justify-end">
+          <div className="flex justify-end space-x-4">
+            <button
+              type="button"
+              onClick={() => navigate("/dashboard")}
+              className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
+            >
+              Cancel
+            </button>
             <button
               type="submit"
-              className="px-6 py-2 bg-blue-500 text-white font-semibold rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
             >
               Post
             </button>
