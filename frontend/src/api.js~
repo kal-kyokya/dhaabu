@@ -5,17 +5,13 @@
 // src/pages/Dashboard.jsx
 import axios from 'axios';
 
-/**
- * const API = axios.create({
- * baseURL: import.meta.env.VITE_API_URL,
- * });
- */
-
-const baseURL = import.meta.env.VITE_API_URL;
+const API = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+});
 
 export const login = ({email, password}) => {
-  // const token = btoa(`${email}:${password}`);
-  // const auth = `Basic ${token}`;
+  const token = btoa(`${email}:${password}`);
+  const auth = `Basic ${token}`;
   /**
    * const headers = new Headers();  Is incorrect
    * headers.append("Authorization", auth);  axios expects headers to be passed as
@@ -26,9 +22,9 @@ export const login = ({email, password}) => {
    *
    * or use global axios config defaults as follows
    */
-  // API.defaults.headers.common['Authorization'] = auth;
+  API.defaults.headers.common['Authorization'] = auth;
 
-    return axios.get(`${baseURL}/signIn`, { email, password });
+  return API.get('/signIn');
 };
 
-export const signup = (data) => axios.post(`${baseURL}/users/signUp`, data);
+export const signup = (data) => API.post('/users/signUp', data);

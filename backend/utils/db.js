@@ -7,9 +7,9 @@ class DBClient {
   constructor() {
     // Load environment variables
     envLoader();
-    const HOST = process.env.DB_HOST || 'localhost';
-    const PORT = process.env.DB_PORT || '27017';
-    const DATABASE = process.env.DB_NAME || 'dhaabu_db';
+    const HOST = process.env.DB_HOST;
+    const PORT = process.env.DB_PORT;
+    const DATABASE = process.env.DB_NAME;
 
     const uri = `mongodb://${HOST}:${PORT}/${DATABASE}`;
 
